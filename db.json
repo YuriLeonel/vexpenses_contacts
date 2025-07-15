@@ -1,0 +1,22 @@
+{
+  "contacts": [
+    {
+      "id": 1,
+      "name": "Yuri Leonel",
+      "email": "yurileonel.001@gmail.com",
+      "phone": "+55 16 99613-9695"
+    },
+    {
+      "id": 2,
+      "name": "João Victor Oliveira",
+      "email": "joao.oliveira@vexpenses.com",
+      "phone": "+55 16 99999-9999"
+    },
+    {
+      "id": 3,
+      "name": "Lucas Idalgo",
+      "email": "lucas.idalgo@vexpenses.com",
+      "phone": "+55 16 99999-9999"
+    }
+  ]
+}
