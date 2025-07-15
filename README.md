@@ -11,7 +11,7 @@ Follow these steps to run the project locally:
 ### 1. Clone the repository
 
 ```bash
-git clone <https://github.com/YuriLeonel/vexpenses_contacts>
+git clone <[https://github.com/YuriLeonel/vexpenses_contacts](https://github.com/YuriLeonel/vexpenses_contacts.git)>
 cd vexpenses_contacts
 ```
 
