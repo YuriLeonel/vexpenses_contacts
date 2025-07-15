@@ -1,69 +1,85 @@
-# React + TypeScript + Vite
+# 👋 Welcome to Vexpenses Contacts!
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, minimal contact management app built with **React**, **TypeScript**, and **Vite**. This project is designed for a tech interview and showcases clean code, SOLID, Design Pattern, best practices, and a simple yet effective UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Quick Start
 
-## Expanding the ESLint configuration
+Follow these steps to run the project locally:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Clone the repository
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone <https://github.com/YuriLeonel/vexpenses_contacts>
+cd vexpenses_contacts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
+
+### 3. Start the mock backend (JSON Server)
+
+```bash
+npm run server
+```
+
+- The mock API will be available at [http://localhost:3001/contacts](http://localhost:3001/contacts)
+
+### 4. Start the frontend
+
+```bash
+npm run dev
+```
+
+- The app will be available at [http://localhost:5173](http://localhost:5173) (or as indicated in your terminal)
+
+---
+
+## 📝 About the Project
+
+- **Purpose:** A reliable and intuitive contact list app, inspired by the default Contacts experience on Android and Apple devices. It supports essential features such as viewing, adding, editing, and deleting contacts, with a focus on usability, accessibility, and consistency.
+- **Tech Stack:**
+
+  - React 19 + TypeScript
+  - Vite (blazing fast dev/build)
+  - Styled-components (theming & global styles)
+  - React Hook Form & Yup (form handling & validation)
+  - React Toastify (notifications)
+  - JSON Server (mock REST API)
+
+- **Design:**
+  - Clean, modern UI with a custom theme (see `src/styles/Theme.ts`)
+  - Responsive and accessible
+
+---
+
+## 📁 Project Structure
+
+- `src/` – Main source code
+  - `App.tsx` – Main app component
+  - `features/contacts/` – Contact management logic
+  - `styles/` – Global styles and theme
+- `db.json` – Mock data for JSON Server
+
+---
+
+## 🧪 Demo Data
+
+The app comes with sample contacts (see `db.json`). You can add, edit, or remove contacts via the UI. All changes are reflected in the mock API.
+
+---
+
+## 🤝 For Interviewers
+
+- This project demonstrates modern React patterns, clean code, and attention to UI/UX.
+- Please feel free to explore, test, and review the codebase!
+
+---
+
+## 📣 Feedback
+
+Suggestions or questions? Feel free to reach out!
