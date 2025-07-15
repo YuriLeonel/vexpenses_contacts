@@ -1,6 +1,6 @@
 # 👋 Welcome to Vexpenses Contacts!
 
-A modern, minimal contact management app built with **React**, **TypeScript**, and **Vite**. This project is designed for a tech interview and showcases clean code, SOLID, Design Pattern, best practices, and a simple yet effective UI.
+A modern, minimal contact management app built with **React**, **TypeScript**, and **Vite**. This project is designed for a tech interview and showcases clean code, SOLID, Design Patterns, best practices, and a simple yet effective UI.
 
 ---
 
@@ -11,7 +11,7 @@ Follow these steps to run the project locally:
 ### 1. Clone the repository
 
 ```bash
-git clone <[https://github.com/YuriLeonel/vexpenses_contacts](https://github.com/YuriLeonel/vexpenses_contacts.git)>
+git clone <https://github.com/YuriLeonel/vexpenses_contacts.git>
 cd vexpenses_contacts
 ```
 
