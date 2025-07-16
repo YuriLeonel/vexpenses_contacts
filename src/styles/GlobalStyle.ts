@@ -1,20 +1,32 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  * {
-    margin: 0;
-    padding: 0;
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  body {
-    background-color: #f9f9f9;
+  html,body {
+    margin: 0;
+    padding: 0;
     font-family: 'Roboto', sans-serif;
-    color: #333;
+    background: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    min-height: 100vh;
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    font: inherit;
+  }
+
+  input, textarea {
+    font: inherit;
   }
 
   #root {
-    width: 100%;
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 `;

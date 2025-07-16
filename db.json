@@ -1,22 +1,56 @@
 {
   "contacts": [
     {
-      "id": 1,
-      "name": "Yuri Leonel",
+      "id": "1",
+      "firstName": "Yuri",
+      "lastName": "Leonel",
       "email": "yurileonel.001@gmail.com",
-      "phone": "+55 16 99613-9695"
+      "phones": [
+        {
+          "label": "Celular",
+          "value": "+55 16 99613-9695"
+        }
+      ],
+      "addresses": [
+        {
+          "label": "Casa",
+          "value": "São Carlos, SP"
+        }
+      ]
     },
     {
-      "id": 2,
-      "name": "João Victor Oliveira",
-      "email": "joao.oliveira@vexpenses.com",
-      "phone": "+55 16 99999-9999"
-    },
-    {
-      "id": 3,
-      "name": "Lucas Idalgo",
+      "id": "3",
+      "firstName": "Lucas",
+      "lastName": "Idalgo",
       "email": "lucas.idalgo@vexpenses.com",
-      "phone": "+55 16 99999-9999"
+      "phones": [
+        {
+          "label": "Celular",
+          "value": "+55 16 99999-9999"
+        }
+      ],
+      "addresses": [
+        {
+          "label": "Casa",
+          "value": "Franca, SP"
+        }
+      ]
+    },
+    {
+      "id": "9635",
+      "firstName": "João Victor",
+      "lastName": "oliveira",
+      "email": "joao.oliveira@vexpense.com",
+      "phones": [
+        {
+          "value": "+5516999999999"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "franca, sp"
+        }
+      ]
     }
   ]
 }

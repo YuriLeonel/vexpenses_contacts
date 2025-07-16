@@ -3,28 +3,53 @@ import styled from 'styled-components'
 
 ReactModal.setAppElement('#root')
 
-const StyledModal = styled(ReactModal)`
-    background-color: ${({ theme }) => theme.colors.background};
-    padding: 2rem;
-    border-radius: 8px;
-    max-width: 500px;
-    margin: 0 auto;
-`
-
 interface ModalProps {
     isOpen: boolean
-    onRequestClose: () => void
+    onClose: () => void
+    title?: string;
     children: React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, onRequestClose, children }) => {
+const ModalHeader = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+`
+
+const CloseButton = styled.button`
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.text};
+`
+
+export function Modal({ isOpen, onClose, title, children }: ModalProps) {
     return (
-        <StyledModal
+        <ReactModal
             isOpen={isOpen}
-            onRequestClose={onRequestClose}
-            contentLabel="Modal"
+            onRequestClose={onClose}
+            style={{
+                content: {
+                    inset: 'auto',
+                    maxWidth: '600px',
+                    margin: 'auto',
+                    borderRadius: '12px',
+                    padding: '2rem',
+                },
+                overlay: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+                    zIndex: 1000,
+                },
+            }}
+            ariaHideApp={false}
         >
-            {children}
-        </StyledModal>
+            <ModalHeader>
+                <h2>{title}</h2>
+                <CloseButton onClick={onClose}>x</CloseButton>
+            </ModalHeader>
+            <div>{children}</div>
+        </ReactModal>
     )
 }
