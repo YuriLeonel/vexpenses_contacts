@@ -80,7 +80,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
     return (
         <Form onSubmit={handleSubmit(submitHandler)} noValidate>
             <Field>
-                <label htmlFor="firstName">First Name *</label>
+                <label htmlFor="firstName">First Name</label>
                 <input 
                     id="firstName"
                     {...register('firstName')}
@@ -95,7 +95,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
             </Field>
             
             <Field>
-                <label htmlFor="lastName">Last Name *</label>
+                <label htmlFor="lastName">Last Name</label>
                 <input 
                     id="lastName"
                     {...register('lastName')}
@@ -110,7 +110,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
             </Field>
             
             <Field>
-                <label htmlFor="email">Email *</label>
+                <label htmlFor="email">Email</label>
                 <input 
                     id="email"
                     type="email"
@@ -131,14 +131,11 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                     <SectionField key={phone.id}>
                         <FieldRow>
                             <div>
-                                <label htmlFor={`phone-${index}`}>
-                                    Phone {index + 1}
-                                </label>
                                 <input 
                                     id={`phone-${index}`}
                                     type="tel"
                                     {...register(`phones.${index}.value`)} 
-                                    placeholder="Phone number"
+                                    placeholder={`Phone ${index + 1}`}
                                     aria-invalid={errors.phones?.[index]?.value ? 'true' : 'false'}
                                     aria-describedby={errors.phones?.[index]?.value ? `phone-${index}-error` : undefined}
                                 />
@@ -179,13 +176,10 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                     <SectionField key={address.id}>
                         <FieldRow>
                             <div>
-                                <label htmlFor={`address-${index}`}>
-                                    Address {index + 1}
-                                </label>
                                 <input 
                                     id={`address-${index}`}
                                     {...register(`addresses.${index}.value`)} 
-                                    placeholder="Address"
+                                    placeholder={`Address ${index + 1}`}
                                     aria-invalid={errors.addresses?.[index]?.value ? 'true' : 'false'}
                                     aria-describedby={errors.addresses?.[index]?.value ? `address-${index}-error` : undefined}
                                 />

@@ -92,6 +92,161 @@
           "value": "São Carlos, SP"
         }
       ]
+    },
+    {
+      "id": "a1b2",
+      "firstName": "Maria",
+      "lastName": "Silva",
+      "email": "maria.silva@example.com",
+      "phones": [
+        {
+          "label": "Celular",
+          "value": "+5511987654321"
+        }
+      ],
+      "addresses": [
+        {
+          "label": "Trabalho",
+          "value": "São Paulo, SP"
+        }
+      ]
+    },
+    {
+      "id": "c3d4",
+      "firstName": "Pedro",
+      "lastName": "Santos",
+      "email": "pedro.santos@example.com",
+      "phones": [
+        {
+          "value": "+5521912345678"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "Rio de Janeiro, RJ"
+        }
+      ]
+    },
+    {
+      "id": "e5f6",
+      "firstName": "Ana",
+      "lastName": "Pereira",
+      "email": "ana.pereira@example.com",
+      "phones": [
+        {
+          "label": "Casa",
+          "value": "+5531998761234"
+        }
+      ],
+      "addresses": [
+        {
+          "label": "Casa",
+          "value": "Belo Horizonte, MG"
+        }
+      ]
+    },
+    {
+      "id": "g7h8",
+      "firstName": "Carlos",
+      "lastName": "Souza",
+      "email": "carlos.souza@example.com",
+      "phones": [
+        {
+          "value": "+5551987659876"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "Porto Alegre, RS"
+        }
+      ]
+    },
+    {
+      "id": "i9j0",
+      "firstName": "Juliana",
+      "lastName": "Costa",
+      "email": "juliana.costa@example.com",
+      "phones": [
+        {
+          "label": "Celular",
+          "value": "+5561911223344"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "Brasília, DF"
+        }
+      ]
+    },
+    {
+      "id": "k1l2",
+      "firstName": "Fernando",
+      "lastName": "Almeida",
+      "email": "fernando.almeida@example.com",
+      "phones": [
+        {
+          "value": "+5585933445566"
+        }
+      ],
+      "addresses": [
+        {
+          "label": "Trabalho",
+          "value": "Fortaleza, CE"
+        }
+      ]
+    },
+    {
+      "id": "m3n4",
+      "firstName": "Patrícia",
+      "lastName": "Martins",
+      "email": "patricia.martins@example.com",
+      "phones": [
+        {
+          "value": "+5571977889900"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "Salvador, BA"
+        }
+      ]
+    },
+    {
+      "id": "o5p6",
+      "firstName": "Roberto",
+      "lastName": "Lima",
+      "email": "roberto.lima@example.com",
+      "phones": [
+        {
+          "label": "Casa",
+          "value": "+5541955667788"
+        }
+      ],
+      "addresses": [
+        {
+          "label": "Casa",
+          "value": "Curitiba, PR"
+        }
+      ]
+    },
+    {
+      "id": "s9t0",
+      "firstName": "Ricardo",
+      "lastName": "Ribeiro",
+      "email": "ricardo.ribeiro@example.com",
+      "phones": [
+        {
+          "value": "+5519999887766"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "Campinas, SP"
+        },
+        {
+          "value": "São Paulo, SP"
+        }
+      ]
     }
   ]
 }

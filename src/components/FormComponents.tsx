@@ -225,7 +225,6 @@ export const RemoveButton = styled.button`
         padding: ${({ theme }) => theme.spacing(1.5)};
         font-size: ${({ theme }) => theme.fontSizes.sm};
         min-height: 40px;
-        margin-top: 1.5rem;
         gap: 0;
         min-width: 40px;
     }
@@ -244,7 +243,6 @@ export const FieldRow = styled.div`
         margin-bottom: 0.125rem;
         
         @media (max-width: 768px) {
-            margin-top: 1.5rem;
             margin-bottom: 0;
         }
     }
