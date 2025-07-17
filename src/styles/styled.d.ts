@@ -6,11 +6,14 @@ declare module 'styled-components' {
             primary: string
             lightPrimary: string
             secondary: string
+            secondaryLight: string
             background: string
             border: string
             text: string
+            white: string
             error: string
             success: string
+            warning: string
         }
         spacing: (factor: number) => string
         radii: {

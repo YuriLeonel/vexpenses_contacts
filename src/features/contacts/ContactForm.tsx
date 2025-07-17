@@ -1,16 +1,40 @@
+import React, { useCallback } from "react"
 import { useForm, useFieldArray } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { contactSchema } from "./schema"
 import type { ContactForm as ContactFormType } from "./types"
 import { toast } from "react-toastify"
-import { Form, Field, SectionTitle, SubmitButton } from "../../components/FormComponents"
+import { 
+    Form, 
+    Field, 
+    SectionField,
+    SectionTitle, 
+    SubmitButton, 
+    ActionButton, 
+    RemoveButton,
+    FieldRow,
+    ErrorMessage,
+    FormActions,
+    SectionActions,
+    ButtonText
+} from "../../components/FormComponents"
+import styled from 'styled-components'
 
 type Props = {
     initialValues?: ContactFormType;
     onSubmit: (data: ContactFormType) => void;
 };
 
-export const ContactForm: React.FC<Props> = ({ initialValues, onSubmit }) => {
+const ButtonIcon = styled.span`
+    font-size: 1.125rem;
+    line-height: 1;
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+`
+
+export const ContactForm = React.memo<Props>(function ContactForm({ 
+    initialValues, 
+    onSubmit 
+}) {
     const { register, control, handleSubmit, formState: { errors } } = useForm<ContactFormType>({
         resolver: yupResolver(contactSchema),
         defaultValues: initialValues ?? {
@@ -32,50 +56,175 @@ export const ContactForm: React.FC<Props> = ({ initialValues, onSubmit }) => {
         name: 'addresses',
     })
 
-    const submitHandler = (data: ContactFormType) => {
-        toast.success('Contact created successfully')
+    const submitHandler = useCallback((data: ContactFormType) => {
+        toast.success(initialValues ? 'Contact updated successfully' : 'Contact created successfully')
         onSubmit(data)
-    }
+    }, [initialValues, onSubmit]);
+
+    const handleAddPhone = useCallback(() => {
+        addPhone({ value: '' });
+    }, [addPhone]);
+
+    const handleAddAddress = useCallback(() => {
+        addAddress({ value: '' });
+    }, [addAddress]);
+
+    const handleRemovePhone = useCallback((index: number) => {
+        removePhone(index);
+    }, [removePhone]);
+
+    const handleRemoveAddress = useCallback((index: number) => {
+        removeAddress(index);
+    }, [removeAddress]);
 
     return (
-        <Form onSubmit={handleSubmit(submitHandler)}>
+        <Form onSubmit={handleSubmit(submitHandler)} noValidate>
             <Field>
-                <label>First Name</label>
-                <input {...register('firstName')}/>
-                {errors.firstName && <span>{errors.firstName.message}</span>}
+                <label htmlFor="firstName">First Name *</label>
+                <input 
+                    id="firstName"
+                    {...register('firstName')}
+                    aria-invalid={errors.firstName ? 'true' : 'false'}
+                    aria-describedby={errors.firstName ? 'firstName-error' : undefined}
+                />
+                {errors.firstName && (
+                    <ErrorMessage id="firstName-error" role="alert">
+                        {errors.firstName.message}
+                    </ErrorMessage>
+                )}
             </Field>
+            
             <Field>
-                <label>Last Name</label>
-                <input {...register('lastName')}/>
-                {errors.lastName && <span>{errors.lastName.message}</span>}
+                <label htmlFor="lastName">Last Name *</label>
+                <input 
+                    id="lastName"
+                    {...register('lastName')}
+                    aria-invalid={errors.lastName ? 'true' : 'false'}
+                    aria-describedby={errors.lastName ? 'lastName-error' : undefined}
+                />
+                {errors.lastName && (
+                    <ErrorMessage id="lastName-error" role="alert">
+                        {errors.lastName.message}
+                    </ErrorMessage>
+                )}
             </Field>
+            
             <Field>
-                <label>Email</label>
-                <input {...register('email')}/>
-                {errors.email && <span>{errors.email.message}</span>}
+                <label htmlFor="email">Email *</label>
+                <input 
+                    id="email"
+                    type="email"
+                    {...register('email')}
+                    aria-invalid={errors.email ? 'true' : 'false'}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                />
+                {errors.email && (
+                    <ErrorMessage id="email-error" role="alert">
+                        {errors.email.message}
+                    </ErrorMessage>
+                )}
             </Field>
 
             <SectionTitle>Phone Numbers</SectionTitle>
-            {phones.map((phone, index) => (
-                <Field key={phone.id}>
-                    <input {...register(`phones.${index}.value`)} placeholder="Phone number"/>
-                    <button type="button" onClick={() => removePhone(index)}>Remove</button>
-                    {errors.phones?.[index]?.value && <span>{errors.phones[index].value.message}</span>}
-                </Field>
-            ))}
-            <button type="button" onClick={() => addPhone({ value: '' })}>Add Phone</button>
+            <div role="group" aria-labelledby="phones-section">
+                {phones.map((phone, index) => (
+                    <SectionField key={phone.id}>
+                        <FieldRow>
+                            <div>
+                                <label htmlFor={`phone-${index}`}>
+                                    Phone {index + 1}
+                                </label>
+                                <input 
+                                    id={`phone-${index}`}
+                                    type="tel"
+                                    {...register(`phones.${index}.value`)} 
+                                    placeholder="Phone number"
+                                    aria-invalid={errors.phones?.[index]?.value ? 'true' : 'false'}
+                                    aria-describedby={errors.phones?.[index]?.value ? `phone-${index}-error` : undefined}
+                                />
+                                {errors.phones?.[index]?.value && (
+                                    <ErrorMessage id={`phone-${index}-error`} role="alert">
+                                        {errors.phones[index].value.message}
+                                    </ErrorMessage>
+                                )}
+                            </div>
+                            {phones.length > 1 && (
+                                <RemoveButton 
+                                    type="button" 
+                                    onClick={() => handleRemovePhone(index)}
+                                    aria-label={`Remove phone ${index + 1}`}
+                                >
+                                    <ButtonIcon aria-hidden="true">−</ButtonIcon>
+                                    <ButtonText>Remove</ButtonText>
+                                </RemoveButton>
+                            )}
+                        </FieldRow>
+                    </SectionField>
+                ))}
+                <SectionActions>
+                    <ActionButton 
+                        type="button" 
+                        onClick={handleAddPhone}
+                        aria-label="Add phone number"
+                    >
+                        <ButtonIcon aria-hidden="true">+</ButtonIcon>
+                        <ButtonText>Add Phone</ButtonText>
+                    </ActionButton>
+                </SectionActions>
+            </div>
 
             <SectionTitle>Addresses</SectionTitle>
-            {addresses.map((address, index) => (
-                <Field key={address.id}>
-                    <input {...register(`addresses.${index}.value`)} placeholder="Address"/>
-                    <button type="button" onClick={() => removeAddress(index)}>Remove</button>
-                    {errors.addresses?.[index]?.value && <span>{errors.addresses[index].value.message}</span>}
-                </Field>
-            ))}
-            <button type="button" onClick={() => addAddress({ value: '' })}>Add Address</button>
+            <div role="group" aria-labelledby="addresses-section">
+                {addresses.map((address, index) => (
+                    <SectionField key={address.id}>
+                        <FieldRow>
+                            <div>
+                                <label htmlFor={`address-${index}`}>
+                                    Address {index + 1}
+                                </label>
+                                <input 
+                                    id={`address-${index}`}
+                                    {...register(`addresses.${index}.value`)} 
+                                    placeholder="Address"
+                                    aria-invalid={errors.addresses?.[index]?.value ? 'true' : 'false'}
+                                    aria-describedby={errors.addresses?.[index]?.value ? `address-${index}-error` : undefined}
+                                />
+                                {errors.addresses?.[index]?.value && (
+                                    <ErrorMessage id={`address-${index}-error`} role="alert">
+                                        {errors.addresses[index].value.message}
+                                    </ErrorMessage>
+                                )}
+                            </div>
+                            {addresses.length > 1 && (
+                                <RemoveButton 
+                                    type="button" 
+                                    onClick={() => handleRemoveAddress(index)}
+                                    aria-label={`Remove address ${index + 1}`}
+                                >
+                                    <ButtonIcon aria-hidden="true">−</ButtonIcon>
+                                    <ButtonText>Remove</ButtonText>
+                                </RemoveButton>
+                            )}
+                        </FieldRow>
+                    </SectionField>
+                ))}
+                <SectionActions>
+                    <ActionButton 
+                        type="button" 
+                        onClick={handleAddAddress}
+                        aria-label="Add address"
+                    >
+                        <ButtonIcon aria-hidden="true">+</ButtonIcon>
+                        <ButtonText>Add Address</ButtonText>
+                    </ActionButton>
+                </SectionActions>
+            </div>
 
-            <SubmitButton type="submit">Save Contact</SubmitButton>
+            <FormActions>
+                <SubmitButton type="submit">
+                    {initialValues ? 'Update Contact' : 'Create Contact'}
+                </SubmitButton>
+            </FormActions>
         </Form>
     );
-}
+});

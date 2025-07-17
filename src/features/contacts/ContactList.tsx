@@ -1,18 +1,28 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import type { Contact } from './types'
 import { contactService } from '../../services/contactService'
 import { groupContacts } from './utils'
 import { toast } from 'react-toastify'
-import { Actions, ContactCard, Group, GroupHeader, ListWrapper } from './ContactList.styles'
+import { Actions, ContactCard, Group, GroupHeader, ListWrapper, LoadingMessage, EmptyMessage } from './ContactList.styles'
+import { ConfirmationModal } from '../../components/ConfirmationModal'
 
 type Props = {
     onEdit: (contact: Contact) => void;
     search: string;
+    onResultsChange?: (count: number) => void;
 };
 
-export function ContactList({ onEdit, search }: Props) {
+export const ContactList = React.memo<Props>(function ContactList({ 
+    onEdit, 
+    search, 
+    onResultsChange 
+}) {
     const [contacts, setContacts] = useState<Contact[]>([])
     const [loading, setLoading] = useState(true)
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; contact: Contact | null }>({
+        isOpen: false,
+        contact: null
+    })
 
     useEffect(() => {
        contactService.getAll().then((data) => {
@@ -23,40 +33,131 @@ export function ContactList({ onEdit, search }: Props) {
        }).finally(() => setLoading(false))
     }, [])
 
-    const handleDelete = (id: number) => {
-        contactService.delete(id).then(() => {
-            setContacts(contacts.filter((contact) => contact.id !== id))
-            toast.success('Contact deleted successfully')
-        }).catch((error) => {
-            toast.error('Failed to delete contact')
-            console.error(error)
-        })
+    const handleDelete = useCallback((contact: Contact) => {
+        setDeleteModal({
+            isOpen: true,
+            contact
+        });
+    }, []);
+
+    const handleDeleteConfirm = useCallback(async () => {
+        if (!deleteModal.contact) return;
+
+        try {
+            await contactService.delete(deleteModal.contact.id);
+            setContacts(prev => prev.filter((contact) => contact.id !== deleteModal.contact!.id));
+            toast.success('Contact deleted successfully');
+        } catch (error) {
+            toast.error('Failed to delete contact');
+            console.error(error);
+        }
+    }, [deleteModal.contact]);
+
+    const handleDeleteCancel = useCallback(() => {
+        setDeleteModal({
+            isOpen: false,
+            contact: null
+        });
+    }, []);
+
+    const filteredContacts = useMemo(() => {
+        return contacts.filter((contact) => 
+            `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(search.toLowerCase())
+        );
+    }, [contacts, search]);
+
+    const groupedContacts = useMemo(() => {
+        return groupContacts(filteredContacts);
+    }, [filteredContacts]);
+
+    useEffect(() => {
+        if (onResultsChange) {
+            onResultsChange(filteredContacts.length);
+        }
+    }, [filteredContacts.length, onResultsChange]);
+
+    const handleEditContact = useCallback((contact: Contact) => {
+        onEdit(contact);
+    }, [onEdit]);
+
+    if (loading) {
+        return (
+            <LoadingMessage role="status" aria-live="polite">
+                Loading contacts...
+            </LoadingMessage>
+        );
     }
 
-    const filteredContacts = contacts.filter((contact) => `${contact.firstName} ${contact.lastName}`.toLowerCase().includes(search.toLowerCase()))
+    if (contacts.length === 0) {
+        return (
+            <EmptyMessage role="status">
+                <h2>No contacts found</h2>
+                <p>Get started by adding your first contact.</p>
+            </EmptyMessage>
+        );
+    }
 
-    const groupedContacts = groupContacts(filteredContacts);
-
-    if (loading) return <div>Loading Contacts...</div>
-    if (contacts.length === 0) return <div>No contacts found</div>
+    if (filteredContacts.length === 0 && search) {
+        return (
+            <EmptyMessage role="status">
+                <h2>No contacts match your search</h2>
+                <p>Try adjusting your search terms or add a new contact.</p>
+            </EmptyMessage>
+        );
+    }
 
     return (
-        <ListWrapper>
-            {Object.entries(groupedContacts).map(([group, groupContacts]) => (
-                <Group key={group}>
-                    <GroupHeader>{group}</GroupHeader>
-                    {groupContacts.map((contact) => (
-                        <ContactCard key={contact.id}>
-                            <strong>{contact.firstName} {contact.lastName}</strong>
-                            <p>{contact.email}</p>
-                            <Actions>
-                                <button onClick={() => onEdit(contact)}>Edit</button>
-                                <button onClick={() => handleDelete(contact.id)}>Delete</button>
-                            </Actions>
-                        </ContactCard>
-                    ))}
-                </Group>
-            ))}
-        </ListWrapper>
+        <>
+            <ListWrapper role="region" aria-label="Contacts list">
+                {Object.entries(groupedContacts).map(([group, groupContacts]) => (
+                    <Group key={group}>
+                        <GroupHeader role="heading" aria-level={2}>
+                            {group}
+                        </GroupHeader>
+                        <div role="list">
+                            {groupContacts.map((contact) => (
+                                <ContactCard key={contact.id} role="listitem">
+                                    <div>
+                                        <strong>{contact.firstName} {contact.lastName}</strong>
+                                        <p>{contact.email}</p>
+                                    </div>
+                                    <Actions>
+                                        <button 
+                                            onClick={() => handleEditContact(contact)}
+                                            aria-label={`Edit contact ${contact.firstName} ${contact.lastName}`}
+                                            type="button"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button 
+                                            onClick={() => handleDelete(contact)}
+                                            aria-label={`Delete contact ${contact.firstName} ${contact.lastName}`}
+                                            type="button"
+                                        >
+                                            Delete
+                                        </button>
+                                    </Actions>
+                                </ContactCard>
+                            ))}
+                        </div>
+                    </Group>
+                ))}
+            </ListWrapper>
+            
+            <ConfirmationModal 
+                isOpen={deleteModal.isOpen}
+                onClose={handleDeleteCancel}
+                onConfirm={handleDeleteConfirm}
+                title="Delete Contact"
+                message={
+                    deleteModal.contact 
+                        ? `Are you sure you want to delete ${deleteModal.contact.firstName} ${deleteModal.contact.lastName}?`
+                        : ''
+                }
+                confirmText="Delete"
+                cancelText="Cancel"
+                type="danger"
+            />
+        </>
     )
-}
+});

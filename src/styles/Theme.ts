@@ -1,13 +1,16 @@
 export const theme = {
     colors: {
-        primary: '#00326B',
-        lightPrimary: '#158CF6',
-        secondary: '#F7841E',
+        primary: '#3fa1ff',
+        lightPrimary: '#8CC7FF',
+        secondary: '#0a7ee3',
+        secondaryLight: '#62B2F8',
         background: '#F9F9F9',
         border: '#E0E0E0',
-        text: '#333',
-        error: '#D32F2F',
-        success: '#2E7D32',
+        text: '#000',
+        white: '#FFFFFF',
+        error: '#E00707',
+        success: '#008C1F',
+        warning: '#F6AC3C',
     },
     spacing: (factor: number) => `${factor * 8}px`,
     radii: {

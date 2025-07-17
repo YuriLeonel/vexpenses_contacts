@@ -8,13 +8,16 @@
       "phones": [
         {
           "label": "Celular",
-          "value": "+55 16 99613-9695"
+          "value": "+5516996139695"
         }
       ],
       "addresses": [
         {
           "label": "Casa",
           "value": "São Carlos, SP"
+        },
+        {
+          "value": "Franca, SP"
         }
       ]
     },
@@ -37,10 +40,10 @@
       ]
     },
     {
-      "id": "9635",
+      "id": "c370",
       "firstName": "João Victor",
-      "lastName": "oliveira",
-      "email": "joao.oliveira@vexpense.com",
+      "lastName": "Oliveira",
+      "email": "joao.oliveira@vexpenses.com",
       "phones": [
         {
           "value": "+5516999999999"
@@ -48,7 +51,45 @@
       ],
       "addresses": [
         {
-          "value": "franca, sp"
+          "value": "Franca, SP"
+        }
+      ]
+    },
+    {
+      "id": "6d9b",
+      "firstName": "Thaina",
+      "lastName": "Baldin",
+      "email": "thaina.baldin@vexpenses.com",
+      "phones": [
+        {
+          "value": "+5516999999999"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "São Carlos, SP"
+        }
+      ]
+    },
+    {
+      "id": "08ef",
+      "firstName": "Yan",
+      "lastName": "Leonel",
+      "email": "yan.leonel@vexpenses.com",
+      "phones": [
+        {
+          "value": "+5516999999999"
+        },
+        {
+          "value": "+5511999999999"
+        }
+      ],
+      "addresses": [
+        {
+          "value": "Franca, Sp"
+        },
+        {
+          "value": "São Carlos, SP"
         }
       ]
     }
