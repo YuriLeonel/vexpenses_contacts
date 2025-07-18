@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { MdAdd } from 'react-icons/md'
 import { SearchInput } from './SearchInput'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
@@ -35,7 +36,9 @@ export const Header = React.memo<Props>(function Header({
         <ActionsContainer>
           <LanguageSwitcher />
           <ActionButton onClick={handleNewContact} type="button">
-            <ButtonIcon aria-hidden="true">+</ButtonIcon>
+            <ButtonIcon aria-hidden="true">
+              <MdAdd />
+            </ButtonIcon>
             <ButtonText>{t('header.newContact')}</ButtonText>
           </ActionButton>
         </ActionsContainer>
@@ -116,8 +119,16 @@ const ActionButton = styled.button`
 `
 
 const ButtonIcon = styled.span`
-  font-size: 1.25rem;
-  line-height: 1;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 const ButtonText = styled.span`

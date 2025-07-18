@@ -57,5 +57,11 @@
     "switchLanguage": "Alterar Idioma",
     "english": "Inglês",
     "portuguese": "Português"
+  },
+  "footer": {
+    "techChallenge": "Desafio Técnico para Vexpenses",
+    "builtWith": "Construído com",
+    "viewOnGithub": "Ver no GitHub",
+    "githubProject": "Ver projeto no GitHub"
   }
 } 

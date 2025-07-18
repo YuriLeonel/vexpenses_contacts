@@ -57,5 +57,11 @@
     "switchLanguage": "Switch Language",
     "english": "English",
     "portuguese": "Portuguese"
+  },
+  "footer": {
+    "techChallenge": "Tech Challenge to Vexpenses",
+    "builtWith": "Built with",
+    "viewOnGithub": "View on GitHub",
+    "githubProject": "View GitHub project"
   }
 } 

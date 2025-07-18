@@ -1,5 +1,6 @@
 import React, { Component, type ReactNode } from 'react'
 import styled from 'styled-components'
+import { MdWarning } from 'react-icons/md'
 
 interface Props {
     children: ReactNode
@@ -37,7 +38,9 @@ class ErrorBoundary extends Component<Props, State> {
 
             return (
                 <ErrorContainer role="alert" aria-live="assertive">
-                    <ErrorIcon aria-hidden="true">⚠️</ErrorIcon>
+                    <ErrorIcon aria-hidden="true">
+                        <MdWarning />
+                    </ErrorIcon>
                     <ErrorTitle>Something went wrong</ErrorTitle>
                     <ErrorMessage>
                         We're sorry, but something unexpected happened. Please try refreshing the page or contact support if the problem persists.
@@ -82,8 +85,18 @@ const ErrorContainer = styled.div`
 `
 
 const ErrorIcon = styled.div`
-    font-size: 4rem;
+    width: 4rem;
+    height: 4rem;
     margin-bottom: ${({ theme }) => theme.spacing(2)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: ${({ theme }) => theme.colors.error};
+    
+    svg {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 const ErrorTitle = styled.h1`

@@ -2,6 +2,7 @@ import React, { useCallback } from "react"
 import { useForm, useFieldArray } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useTranslation } from 'react-i18next'
+import { MdAdd, MdRemove } from 'react-icons/md'
 import { contactSchema } from "./schema"
 import type { ContactForm as ContactFormType } from "./types"
 import { toast } from "react-toastify"
@@ -27,9 +28,16 @@ type Props = {
 };
 
 const ButtonIcon = styled.span`
-    font-size: 1.125rem;
-    line-height: 1;
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    width: 1.125rem;
+    height: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 export const ContactForm = React.memo<Props>(function ContactForm({ 
@@ -153,7 +161,9 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                                     onClick={() => handleRemovePhone(index)}
                                     aria-label={`${t('contact.remove')} ${t('contact.phone')} ${index + 1}`}
                                 >
-                                    <ButtonIcon aria-hidden="true">−</ButtonIcon>
+                                    <ButtonIcon aria-hidden="true">
+                                        <MdRemove />
+                                    </ButtonIcon>
                                     <ButtonText>{t('contact.remove')}</ButtonText>
                                 </RemoveButton>
                             )}
@@ -166,7 +176,9 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                         onClick={handleAddPhone}
                         aria-label={t('contact.addPhone')}
                     >
-                        <ButtonIcon aria-hidden="true">+</ButtonIcon>
+                        <ButtonIcon aria-hidden="true">
+                            <MdAdd />
+                        </ButtonIcon>
                         <ButtonText>{t('contact.addPhone')}</ButtonText>
                     </ActionButton>
                 </SectionActions>
@@ -197,7 +209,9 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                                     onClick={() => handleRemoveAddress(index)}
                                     aria-label={`${t('contact.remove')} ${t('contact.address')} ${index + 1}`}
                                 >
-                                    <ButtonIcon aria-hidden="true">−</ButtonIcon>
+                                    <ButtonIcon aria-hidden="true">
+                                        <MdRemove />
+                                    </ButtonIcon>
                                     <ButtonText>{t('contact.remove')}</ButtonText>
                                 </RemoveButton>
                             )}
@@ -210,7 +224,9 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                         onClick={handleAddAddress}
                         aria-label={t('contact.addAddress')}
                     >
-                        <ButtonIcon aria-hidden="true">+</ButtonIcon>
+                        <ButtonIcon aria-hidden="true">
+                            <MdAdd />
+                        </ButtonIcon>
                         <ButtonText>{t('contact.addAddress')}</ButtonText>
                     </ActionButton>
                 </SectionActions>

@@ -9,6 +9,7 @@ import { ContactForm } from './features/contacts/ContactForm'
 import styled from 'styled-components'
 import { Header } from './components/Header'
 import { Modal } from './components/Modal'
+import { Footer } from './components/Footer'
 
 
 function App() {
@@ -78,6 +79,8 @@ function App() {
           onResultsChange={handleResultsChange}
         />
       </MainContent>
+
+      <Footer />
 
       <Modal 
         isOpen={isModalOpen} 

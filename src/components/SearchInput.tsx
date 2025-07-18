@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { MdClose } from 'react-icons/md';
 
 type Props = {
   value: string;
@@ -56,7 +57,9 @@ export const SearchInput = React.memo<Props>(function SearchInput({
             onClick={handleClear}
             aria-label={t('header.search')}
           >
-            <ClearIcon aria-hidden="true">×</ClearIcon>
+            <ClearIcon aria-hidden="true">
+              <MdClose />
+            </ClearIcon>
           </ClearButton>
         )}
       </SearchInputContainer>
@@ -165,9 +168,16 @@ const ClearButton = styled.button`
 `;
 
 const ClearIcon = styled.span`
-  font-size: 1.25rem;
-  line-height: 1;
-  font-weight: 300;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 const SearchResults = styled.div`

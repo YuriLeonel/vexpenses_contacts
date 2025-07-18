@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import ReactModal from 'react-modal'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import { MdClose } from 'react-icons/md'
 
 ReactModal.setAppElement('#root')
 
@@ -120,7 +121,9 @@ export function Modal({ isOpen, onClose, title, ariaLabelledBy, children }: Moda
                         aria-label={t('modal.close')}
                         type="button"
                     >
-                        <CloseIcon aria-hidden="true">×</CloseIcon>
+                        <CloseIcon aria-hidden="true">
+                            <MdClose />
+                        </CloseIcon>
                     </CloseButton>
                 </ModalHeader>
                 <ModalBody>{children}</ModalBody>
@@ -215,9 +218,16 @@ const CloseButton = styled.button`
 `
 
 const CloseIcon = styled.span`
-    font-size: 1.5rem;
-    line-height: 1;
-    font-weight: 300;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    svg {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 const ModalBody = styled.div`

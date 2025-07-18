@@ -1,4 +1,6 @@
+import React from 'react'
 import styled from 'styled-components'
+import { MdWarning } from 'react-icons/md'
 
 export const Form = styled.form`
     display: flex;
@@ -65,19 +67,56 @@ export const Field = styled.div`
     }
 `
 
-export const ErrorMessage = styled.span`
+interface ErrorMessageProps {
+    children: React.ReactNode;
+    id?: string;
+    role?: string;
+    className?: string;
+    showIcon?: boolean;
+}
+
+const ErrorMessageComponent: React.FC<ErrorMessageProps> = ({ 
+    children, 
+    id, 
+    role = "alert", 
+    className,
+    showIcon = true
+}) => {
+    return (
+        <ErrorMessageStyled id={id} role={role} className={className}>
+            {showIcon && (
+                <ErrorIcon aria-hidden="true">
+                    <MdWarning />
+                </ErrorIcon>
+            )}
+            {children}
+        </ErrorMessageStyled>
+    );
+};
+
+const ErrorMessageStyled = styled.span`
     color: ${({ theme }) => theme.colors.error};
     font-size: ${({ theme }) => theme.fontSizes.sm};
     margin-top: 0.25rem;
     display: flex;
     align-items: center;
     gap: 0.25rem;
+`
+
+const ErrorIcon = styled.span`
+    width: 0.875rem;
+    height: 0.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     
-    &::before {
-        content: "⚠";
-        font-size: 0.875rem;
+    svg {
+        width: 100%;
+        height: 100%;
     }
 `
+
+export const ErrorMessage = ErrorMessageComponent;
 
 export const SectionTitle = styled.h3`
     font-size: ${({ theme }) => theme.fontSizes.lg};
