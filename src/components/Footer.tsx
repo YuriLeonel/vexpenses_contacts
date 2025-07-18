@@ -58,80 +58,84 @@ const FooterContainer = styled.footer`
 const FooterContent = styled.div`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   align-items: center;
+  text-align: center;
   
-  @media (max-width: 768px) {
-    padding: 1.5rem 1rem;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    text-align: center;
+  @media (min-width: 768px) {
+    padding: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    gap: 2rem;
   }
 `
 
 const FooterSection = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 1rem;
   
-  &:first-child {
-    justify-self: start;
-  }
-  
-  &:last-child {
-    justify-self: end;
-  }
-  
-  @media (max-width: 768px) {
-    justify-self: center;
-    align-items: center;
+  @media (min-width: 768px) {
+    &:first-child {
+      align-items: flex-start;
+    }
+    
+    &:last-child {
+      align-items: flex-end;
+    }
   }
 `
 
 const LogoSection = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 0.75rem;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
   }
 `
 
 const VexpensesLogo = styled.img`
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   
-  @media (max-width: 768px) {
-    width: 40px;
-    height: 40px;
+  @media (min-width: 768px) {
+    width: 48px;
+    height: 48px;
   }
 `
 
 const ProjectInfo = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.25rem;
   
-  @media (max-width: 768px) {
-    align-items: center;
+  @media (min-width: 768px) {
+    align-items: flex-start;
   }
 `
 
 const CopyrightText = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
   font-weight: ${({ theme }) => theme.fontWeights.medium};
 `
 
 const ChallengeText = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: 0.875rem;
   color: ${({ theme }) => theme.colors.primary};
   margin: 0;
   font-weight: ${({ theme }) => theme.fontWeights.medium};
@@ -140,12 +144,12 @@ const ChallengeText = styled.p`
 const TechStack = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
   align-items: center;
+  gap: 0.75rem;
 `
 
 const TechTitle = styled.h3`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: 0.875rem;
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   color: ${({ theme }) => theme.colors.text};
   margin: 0;
@@ -153,19 +157,24 @@ const TechTitle = styled.h3`
 
 const TechList = styled.div`
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
   justify-content: center;
 `
 
 const TechItem = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: 0.75rem;
   color: ${({ theme }) => theme.colors.secondary};
   background-color: ${({ theme }) => theme.colors.white};
   padding: 0.25rem 0.5rem;
   border-radius: ${({ theme }) => theme.radii.small};
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-weight: ${({ theme }) => theme.fontWeights.medium};
+  white-space: nowrap;
+  
+  @media (min-width: 768px) {
+    font-size: 0.875rem;
+  }
 `
 
 const GitHubLink = styled.a`
@@ -177,7 +186,7 @@ const GitHubLink = styled.a`
   color: ${({ theme }) => theme.colors.white};
   text-decoration: none;
   border-radius: ${({ theme }) => theme.radii.medium};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-size: 0.875rem;
   font-weight: ${({ theme }) => theme.fontWeights.medium};
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -194,19 +203,28 @@ const GitHubLink = styled.a`
     outline-offset: 2px;
   }
   
-  @media (max-width: 768px) {
-    padding: 0.625rem 0.875rem;
+  @media (min-width: 768px) {
+    padding: 0.875rem 1.125rem;
   }
 `
 
 const GitHubIcon = styled.span`
   display: flex;
   align-items: center;
-  font-size: 1.125rem;
+  font-size: 1rem;
   line-height: 1;
   
   svg {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1rem;
+    height: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    font-size: 1.125rem;
+    
+    svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
   }
 ` 
