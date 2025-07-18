@@ -63,5 +63,12 @@
     "builtWith": "Construído com",
     "viewOnGithub": "Ver no GitHub",
     "githubProject": "Ver projeto no GitHub"
+  },
+  "errorBoundary": {
+    "title": "Algo deu errado",
+    "message": "Desculpe, mas algo inesperado aconteceu. Por favor, tente atualizar a página ou entre em contato com o suporte se o problema persistir.",
+    "tryAgain": "Tentar Novamente",
+    "reloadPage": "Recarregar Página",
+    "errorDetails": "Detalhes do Erro (Apenas em Desenvolvimento)"
   }
 } 

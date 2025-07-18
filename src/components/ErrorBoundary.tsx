@@ -1,8 +1,9 @@
 import React, { Component, type ReactNode } from 'react'
 import styled from 'styled-components'
 import { MdWarning } from 'react-icons/md'
+import { withTranslation, type WithTranslation } from 'react-i18next'
 
-interface Props {
+interface Props extends WithTranslation {
     children: ReactNode
     fallback?: ReactNode
 }
@@ -41,22 +42,22 @@ class ErrorBoundary extends Component<Props, State> {
                     <ErrorIcon aria-hidden="true">
                         <MdWarning />
                     </ErrorIcon>
-                    <ErrorTitle>Something went wrong</ErrorTitle>
+                    <ErrorTitle>{this.props.t('errorBoundary.title')}</ErrorTitle>
                     <ErrorMessage>
-                        We're sorry, but something unexpected happened. Please try refreshing the page or contact support if the problem persists.
+                        {this.props.t('errorBoundary.message')}
                     </ErrorMessage>
                     <ErrorActions>
                         <RetryButton onClick={this.handleRetry} type="button">
-                            Try Again
+                            {this.props.t('errorBoundary.tryAgain')}
                         </RetryButton>
                         <ReloadButton onClick={() => window.location.reload()} type="button">
-                            Reload Page
+                            {this.props.t('errorBoundary.reloadPage')}
                         </ReloadButton>
                     </ErrorActions>
                     
                     {import.meta.env.DEV && this.state.error && (
                         <ErrorDetails>
-                            <summary>Error Details (Development Only)</summary>
+                            <summary>{this.props.t('errorBoundary.errorDetails')}</summary>
                             <pre>{this.state.error.toString()}</pre>
                         </ErrorDetails>
                     )}
@@ -68,7 +69,7 @@ class ErrorBoundary extends Component<Props, State> {
     }
 }
 
-export default ErrorBoundary
+export default withTranslation()(ErrorBoundary)
 
 const ErrorContainer = styled.div`
     display: flex;
