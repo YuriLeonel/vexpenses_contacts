@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 import { SearchInput } from './SearchInput'
+import { LanguageSwitcher } from './LanguageSwitcher'
 
 type Props = {
   search: string
@@ -15,6 +17,8 @@ export const Header = React.memo<Props>(function Header({
   onNewContact, 
   resultsCount 
 }) {
+  const { t } = useTranslation();
+  
   const handleNewContact = useCallback(() => {
     onNewContact();
   }, [onNewContact]);
@@ -28,10 +32,13 @@ export const Header = React.memo<Props>(function Header({
           resultsCount={resultsCount}
           id="contact-search"
         />
-        <ActionButton onClick={handleNewContact} type="button">
-          <ButtonIcon aria-hidden="true">+</ButtonIcon>
-          <ButtonText>New Contact</ButtonText>
-        </ActionButton>
+        <ActionsContainer>
+          <LanguageSwitcher />
+          <ActionButton onClick={handleNewContact} type="button">
+            <ButtonIcon aria-hidden="true">+</ButtonIcon>
+            <ButtonText>{t('header.newContact')}</ButtonText>
+          </ActionButton>
+        </ActionsContainer>
       </HeaderContent>
     </HeaderContainer>
   )
@@ -59,6 +66,16 @@ const HeaderContent = styled.div`
   @media (max-width: 768px) {
     padding: 1rem;
     gap: 0.75rem;
+  }
+`
+
+const ActionsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  
+  @media (max-width: 768px) {
+    gap: 0.5rem;
   }
 `
 

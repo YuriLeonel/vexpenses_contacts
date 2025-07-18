@@ -1,0 +1,61 @@
+{
+  "app": {
+    "title": "Gerenciamento de Contatos",
+    "vexpenses": "VExpenses"
+  },
+  "header": {
+    "newContact": "Novo Contato",
+    "search": "Buscar contatos...",
+    "resultsCount": "{{count}} contato encontrado",
+    "resultsCount_plural": "{{count}} contatos encontrados",
+    "noResults": "Nenhum contato encontrado"
+  },
+  "contact": {
+    "firstName": "Nome",
+    "lastName": "Sobrenome",
+    "email": "Email",
+    "phone": "Telefone",
+    "phones": "Telefones",
+    "address": "Endereço",
+    "addresses": "Endereços",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "addPhone": "Adicionar Telefone",
+    "addAddress": "Adicionar Endereço",
+    "remove": "Remover"
+  },
+  "modal": {
+    "editContact": "Editar Contato",
+    "newContact": "Novo Contato",
+    "close": "Fechar"
+  },
+  "form": {
+    "required": "Este campo é obrigatório",
+    "invalidEmail": "Por favor, insira um email válido",
+    "submit": "Enviar",
+    "cancel": "Cancelar"
+  },
+  "messages": {
+    "contactCreated": "Contato criado com sucesso",
+    "contactUpdated": "Contato atualizado com sucesso",
+    "contactDeleted": "Contato excluído com sucesso",
+    "error": "Ocorreu um erro. Por favor, tente novamente.",
+    "loading": "Carregando contatos...",
+    "noContacts": "Nenhum contato encontrado",
+    "getStarted": "Comece adicionando seu primeiro contato.",
+    "adjustSearch": "Tente ajustar seus termos de busca ou adicionar um novo contato."
+  },
+  "confirmation": {
+    "deleteContact": "Tem certeza de que deseja excluir",
+    "deleteTitle": "Excluir Contato",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
+  "language": {
+    "switchLanguage": "Alterar Idioma",
+    "english": "Inglês",
+    "portuguese": "Português"
+  }
+} 

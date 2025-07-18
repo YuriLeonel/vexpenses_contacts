@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import type { Contact, ContactForm as ContactFormType } from './features/contacts/types'
@@ -11,6 +12,7 @@ import { Modal } from './components/Modal'
 
 
 function App() {
+  const { t } = useTranslation();
   const [editingContact, setEditingContact] = useState<Contact | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)	
   const [search, setSearch] = useState('')
@@ -65,8 +67,8 @@ function App() {
 
       <MainContent id="main-content">
         <PageTitle>
-          <VisuallyHidden>VExpenses</VisuallyHidden>
-          Contact Management
+          <VisuallyHidden>{t('app.vexpenses')}</VisuallyHidden>
+          {t('app.title')}
         </PageTitle>
         
         <ContactList 
@@ -80,7 +82,7 @@ function App() {
       <Modal 
         isOpen={isModalOpen} 
         onClose={handleCloseModal} 
-        title={editingContact ? 'Edit Contact' : 'New Contact'}
+        title={editingContact ? t('modal.editContact') : t('modal.newContact')}
         ariaLabelledBy="modal-title"
       >
         <ContactForm 

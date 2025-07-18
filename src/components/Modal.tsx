@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import ReactModal from 'react-modal'
 import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
 ReactModal.setAppElement('#root')
 
@@ -29,6 +30,7 @@ const getFocusableElements = (container: HTMLElement): HTMLElement[] => {
 }
 
 export function Modal({ isOpen, onClose, title, ariaLabelledBy, children }: ModalProps) {
+    const { t } = useTranslation();
     const modalRef = useRef<HTMLDivElement>(null)
     const previousFocusRef = useRef<HTMLElement | null>(null)
 
@@ -115,7 +117,7 @@ export function Modal({ isOpen, onClose, title, ariaLabelledBy, children }: Moda
                     </ModalTitle>
                     <CloseButton
                         onClick={onClose}
-                        aria-label="Close modal"
+                        aria-label={t('modal.close')}
                         type="button"
                     >
                         <CloseIcon aria-hidden="true">×</CloseIcon>

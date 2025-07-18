@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   value: string;
@@ -12,10 +13,11 @@ type Props = {
 export const SearchInput = React.memo<Props>(function SearchInput({ 
   value, 
   onChange, 
-  placeholder = 'Search contacts',
+  placeholder,
   resultsCount,
   id = 'search-input'
 }) {
+  const { t } = useTranslation();
   const handleClear = useCallback(() => {
     onChange('');
   }, [onChange]);
@@ -33,7 +35,7 @@ export const SearchInput = React.memo<Props>(function SearchInput({
   return (
     <SearchContainer>
       <SearchLabel htmlFor={id}>
-        Search Contacts
+        {t('header.search')}
       </SearchLabel>
       <SearchInputContainer>
         <SearchField
@@ -42,7 +44,7 @@ export const SearchInput = React.memo<Props>(function SearchInput({
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder}
+          placeholder={placeholder || t('header.search')}
           aria-describedby={resultsCount !== undefined ? `${id}-results` : undefined}
           aria-autocomplete="list"
           autoComplete="off"
@@ -52,7 +54,7 @@ export const SearchInput = React.memo<Props>(function SearchInput({
           <ClearButton
             type="button"
             onClick={handleClear}
-            aria-label="Clear search"
+            aria-label={t('header.search')}
           >
             <ClearIcon aria-hidden="true">×</ClearIcon>
           </ClearButton>
@@ -64,7 +66,9 @@ export const SearchInput = React.memo<Props>(function SearchInput({
           aria-live="polite"
           aria-atomic="true"
         >
-          {value ? `${resultsCount} result${resultsCount !== 1 ? 's' : ''} found` : ''}
+          {value ? (
+            resultsCount === 0 ? t('header.noResults') : t('header.resultsCount', { count: resultsCount })
+          ) : ''}
         </SearchResults>
       )}
     </SearchContainer>

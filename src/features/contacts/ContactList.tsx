@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { Contact } from './types'
 import { contactService } from '../../services/contactService'
 import { groupContacts } from './utils'
@@ -17,6 +18,7 @@ export const ContactList = React.memo<Props>(function ContactList({
     search, 
     onResultsChange 
 }) {
+    const { t } = useTranslation();
     const [contacts, setContacts] = useState<Contact[]>([])
     const [loading, setLoading] = useState(true)
     const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; contact: Contact | null }>({
@@ -28,10 +30,10 @@ export const ContactList = React.memo<Props>(function ContactList({
        contactService.getAll().then((data) => {
         setContacts(data);
        }).catch((error) => {
-        toast.error('Failed to fetch contacts')
+        toast.error(t('messages.error'))
         console.error(error)
        }).finally(() => setLoading(false))
-    }, [])
+    }, [t])
 
     const handleDelete = useCallback((contact: Contact) => {
         setDeleteModal({
@@ -46,12 +48,12 @@ export const ContactList = React.memo<Props>(function ContactList({
         try {
             await contactService.delete(deleteModal.contact.id);
             setContacts(prev => prev.filter((contact) => contact.id !== deleteModal.contact!.id));
-            toast.success('Contact deleted successfully');
+            toast.success(t('messages.contactDeleted'));
         } catch (error) {
-            toast.error('Failed to delete contact');
+            toast.error(t('messages.error'));
             console.error(error);
         }
-    }, [deleteModal.contact]);
+    }, [deleteModal.contact, t]);
 
     const handleDeleteCancel = useCallback(() => {
         setDeleteModal({
@@ -83,7 +85,7 @@ export const ContactList = React.memo<Props>(function ContactList({
     if (loading) {
         return (
             <LoadingMessage role="status" aria-live="polite">
-                Loading contacts...
+                {t('messages.loading')}
             </LoadingMessage>
         );
     }
@@ -91,8 +93,8 @@ export const ContactList = React.memo<Props>(function ContactList({
     if (contacts.length === 0) {
         return (
             <EmptyMessage role="status">
-                <h2>No contacts found</h2>
-                <p>Get started by adding your first contact.</p>
+                <h2>{t('messages.noContacts')}</h2>
+                <p>{t('messages.getStarted')}</p>
             </EmptyMessage>
         );
     }
@@ -100,8 +102,8 @@ export const ContactList = React.memo<Props>(function ContactList({
     if (filteredContacts.length === 0 && search) {
         return (
             <EmptyMessage role="status">
-                <h2>No contacts match your search</h2>
-                <p>Try adjusting your search terms or add a new contact.</p>
+                <h2>{t('header.noResults')}</h2>
+                <p>{t('messages.adjustSearch')}</p>
             </EmptyMessage>
         );
     }
@@ -124,17 +126,17 @@ export const ContactList = React.memo<Props>(function ContactList({
                                     <Actions>
                                         <button 
                                             onClick={() => handleEditContact(contact)}
-                                            aria-label={`Edit contact ${contact.firstName} ${contact.lastName}`}
+                                            aria-label={`${t('contact.edit')} ${contact.firstName} ${contact.lastName}`}
                                             type="button"
                                         >
-                                            Edit
+                                            {t('contact.edit')}
                                         </button>
                                         <button 
                                             onClick={() => handleDelete(contact)}
-                                            aria-label={`Delete contact ${contact.firstName} ${contact.lastName}`}
+                                            aria-label={`${t('contact.delete')} ${contact.firstName} ${contact.lastName}`}
                                             type="button"
                                         >
-                                            Delete
+                                            {t('contact.delete')}
                                         </button>
                                     </Actions>
                                 </ContactCard>
@@ -148,14 +150,14 @@ export const ContactList = React.memo<Props>(function ContactList({
                 isOpen={deleteModal.isOpen}
                 onClose={handleDeleteCancel}
                 onConfirm={handleDeleteConfirm}
-                title="Delete Contact"
+                title={t('confirmation.deleteTitle')}
                 message={
                     deleteModal.contact 
-                        ? `Are you sure you want to delete ${deleteModal.contact.firstName} ${deleteModal.contact.lastName}?`
+                        ? `${t('confirmation.deleteContact')} ${deleteModal.contact.firstName} ${deleteModal.contact.lastName}?`
                         : ''
                 }
-                confirmText="Delete"
-                cancelText="Cancel"
+                confirmText={t('confirmation.confirm')}
+                cancelText={t('confirmation.cancel')}
                 type="danger"
             />
         </>

@@ -4,6 +4,8 @@ export const theme = {
         lightPrimary: '#8CC7FF',
         secondary: '#0a7ee3',
         secondaryLight: '#62B2F8',
+        highlight: '#F7841E',
+        highlightLight: '#fab578',
         background: '#F9F9F9',
         border: '#E0E0E0',
         text: '#000',

@@ -1,6 +1,7 @@
 import React, { useCallback } from "react"
 import { useForm, useFieldArray } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useTranslation } from 'react-i18next'
 import { contactSchema } from "./schema"
 import type { ContactForm as ContactFormType } from "./types"
 import { toast } from "react-toastify"
@@ -35,6 +36,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
     initialValues, 
     onSubmit 
 }) {
+    const { t } = useTranslation();
     const { register, control, handleSubmit, formState: { errors } } = useForm<ContactFormType>({
         resolver: yupResolver(contactSchema),
         defaultValues: initialValues ?? {
@@ -57,9 +59,9 @@ export const ContactForm = React.memo<Props>(function ContactForm({
     })
 
     const submitHandler = useCallback((data: ContactFormType) => {
-        toast.success(initialValues ? 'Contact updated successfully' : 'Contact created successfully')
+        toast.success(initialValues ? t('messages.contactUpdated') : t('messages.contactCreated'))
         onSubmit(data)
-    }, [initialValues, onSubmit]);
+    }, [initialValues, onSubmit, t]);
 
     const handleAddPhone = useCallback(() => {
         addPhone({ value: '' });
@@ -80,7 +82,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
     return (
         <Form onSubmit={handleSubmit(submitHandler)} noValidate>
             <Field>
-                <label htmlFor="firstName">First Name</label>
+                <label htmlFor="firstName">{t('contact.firstName')}</label>
                 <input 
                     id="firstName"
                     {...register('firstName')}
@@ -95,7 +97,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
             </Field>
             
             <Field>
-                <label htmlFor="lastName">Last Name</label>
+                <label htmlFor="lastName">{t('contact.lastName')}</label>
                 <input 
                     id="lastName"
                     {...register('lastName')}
@@ -110,7 +112,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
             </Field>
             
             <Field>
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">{t('contact.email')}</label>
                 <input 
                     id="email"
                     type="email"
@@ -125,7 +127,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                 )}
             </Field>
 
-            <SectionTitle>Phone Numbers</SectionTitle>
+            <SectionTitle>{t('contact.phones')}</SectionTitle>
             <div role="group" aria-labelledby="phones-section">
                 {phones.map((phone, index) => (
                     <SectionField key={phone.id}>
@@ -135,7 +137,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                                     id={`phone-${index}`}
                                     type="tel"
                                     {...register(`phones.${index}.value`)} 
-                                    placeholder={`Phone ${index + 1}`}
+                                    placeholder={`${t('contact.phone')} ${index + 1}`}
                                     aria-invalid={errors.phones?.[index]?.value ? 'true' : 'false'}
                                     aria-describedby={errors.phones?.[index]?.value ? `phone-${index}-error` : undefined}
                                 />
@@ -149,10 +151,10 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                                 <RemoveButton 
                                     type="button" 
                                     onClick={() => handleRemovePhone(index)}
-                                    aria-label={`Remove phone ${index + 1}`}
+                                    aria-label={`${t('contact.remove')} ${t('contact.phone')} ${index + 1}`}
                                 >
                                     <ButtonIcon aria-hidden="true">−</ButtonIcon>
-                                    <ButtonText>Remove</ButtonText>
+                                    <ButtonText>{t('contact.remove')}</ButtonText>
                                 </RemoveButton>
                             )}
                         </FieldRow>
@@ -162,15 +164,15 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                     <ActionButton 
                         type="button" 
                         onClick={handleAddPhone}
-                        aria-label="Add phone number"
+                        aria-label={t('contact.addPhone')}
                     >
                         <ButtonIcon aria-hidden="true">+</ButtonIcon>
-                        <ButtonText>Add Phone</ButtonText>
+                        <ButtonText>{t('contact.addPhone')}</ButtonText>
                     </ActionButton>
                 </SectionActions>
             </div>
 
-            <SectionTitle>Addresses</SectionTitle>
+            <SectionTitle>{t('contact.addresses')}</SectionTitle>
             <div role="group" aria-labelledby="addresses-section">
                 {addresses.map((address, index) => (
                     <SectionField key={address.id}>
@@ -179,7 +181,7 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                                 <input 
                                     id={`address-${index}`}
                                     {...register(`addresses.${index}.value`)} 
-                                    placeholder={`Address ${index + 1}`}
+                                    placeholder={`${t('contact.address')} ${index + 1}`}
                                     aria-invalid={errors.addresses?.[index]?.value ? 'true' : 'false'}
                                     aria-describedby={errors.addresses?.[index]?.value ? `address-${index}-error` : undefined}
                                 />
@@ -193,10 +195,10 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                                 <RemoveButton 
                                     type="button" 
                                     onClick={() => handleRemoveAddress(index)}
-                                    aria-label={`Remove address ${index + 1}`}
+                                    aria-label={`${t('contact.remove')} ${t('contact.address')} ${index + 1}`}
                                 >
                                     <ButtonIcon aria-hidden="true">−</ButtonIcon>
-                                    <ButtonText>Remove</ButtonText>
+                                    <ButtonText>{t('contact.remove')}</ButtonText>
                                 </RemoveButton>
                             )}
                         </FieldRow>
@@ -206,17 +208,17 @@ export const ContactForm = React.memo<Props>(function ContactForm({
                     <ActionButton 
                         type="button" 
                         onClick={handleAddAddress}
-                        aria-label="Add address"
+                        aria-label={t('contact.addAddress')}
                     >
                         <ButtonIcon aria-hidden="true">+</ButtonIcon>
-                        <ButtonText>Add Address</ButtonText>
+                        <ButtonText>{t('contact.addAddress')}</ButtonText>
                     </ActionButton>
                 </SectionActions>
             </div>
 
             <FormActions>
                 <SubmitButton type="submit">
-                    {initialValues ? 'Update Contact' : 'Create Contact'}
+                    {initialValues ? t('contact.save') : t('contact.save')}
                 </SubmitButton>
             </FormActions>
         </Form>
